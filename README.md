@@ -20,7 +20,7 @@ For the New Developer
 #### Introduction
 [**Robobrain**](robobrain.me) is a project that serves Twitter-like feeds of various things learned by the research project that contribute to it. It tags special concepts that the robot learns like *book* or *grasp* and creates a graphical association for them. Our web interface allows us to view the infinite feed, upvote and downvote elements, comment using [Disqus](https://disqus.com/) and view the underlying graph structure <sup>Coming Soon</sup>
 
-----------
+
 
 #### Technology Stack
 
@@ -33,6 +33,8 @@ Our Frontend stack is in **Angularjs**, a **Javascript** based front-end framewo
 To deploy, we use **nginx** as our webserver, which serves the static files built by Grunt, and uses **uwsgi** to interface with Django.
 
 > **Note:** If any portion of the tutorial below is incorrect or not functional, contact Deedy (dd367@cornell.edu) immediately.
+
+
 
 ####  How to get the code running locally
  1. Add new user's Github account to the organization **RoboBrainCode**.
@@ -58,8 +60,6 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
  8.  If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
  > **Important:** Currently, be careful to not overwrite the `manage.py` on the `production` branch or it will use the test database instead of the production one.
 
-
-  ----------
 
 
 ####  How to use AWS to deploy
@@ -95,7 +95,7 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
          - nginx error log - `/var/log/nginx/error.log`
          - uwsgi - `/var/log/uwsgi/robobrain.log`
 
-----------
+
 
 ####  Who you can get in touch with
 
@@ -107,6 +107,8 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
 
 ----------
 
+
+
 For the Old Developer
 -------------
 ####  Things to give New Users
@@ -117,7 +119,7 @@ For the Old Developer
 
  3. Add them to Github organization, giving them access to the repositories.
 
-----------
+
 
 ####  Adding New Users
 
@@ -149,7 +151,8 @@ For the Old Developer
     ```
 Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zsh`.
 
-----------
+
+
 ####  Future Administrative Work
 
  1. Iron out specifications as to what branches will contain what such that overwrites on a certain file are not an issue, and do not change the backend database.
@@ -163,5 +166,6 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
  5. Figure out the correct `nginx`, `uwsgi` and permission settings on the instances.
 
  6. Distant future - possibly add Phabricator as a code review tool.
+
 
 ----------
