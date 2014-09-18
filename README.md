@@ -165,7 +165,10 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
  5. Figure out the correct `nginx`, `uwsgi` and permission settings on the instances.
 
- 6. Distant future - possibly add Phabricator as a code review tool.
+ 6. Not so distant future - figure out how we are going to do testing. As our code get's bigger, we cannot blindly launch.
+
+ 7. Distant future - possibly add Phabricator as a code review tool.
+
 
 
 ----------
