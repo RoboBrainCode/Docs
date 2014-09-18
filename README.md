@@ -2,13 +2,13 @@ Robobrain Onboarding Docs
 ===================
 
 #### Table of Contents
-  [For the New Developer](#for-the-new-developer)
+  - [For the New Developer](#for-the-new-developer)
       - [Introduction](#introduction)
       - [Technology Stack](#technology-stack)
       - [How to get the code running locally](#how-to-get-the-code-running-locally)
       - [How to use AWS to deploy](#how-to-use-aws-to-deploy)
       - [Who you can get in touch with](#who-you-can-get-in-touch-with)
-  [For the Old Developer](#for-the-old-developer)
+  - [For the Old Developer](#for-the-old-developer)
       - [Things to give New Users](#things-to-give-new-users)
       - [Adding New Users](#adding-new-users)
       - [Future Administrative Work](#future-administrative-work)
