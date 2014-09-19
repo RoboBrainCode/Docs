@@ -1,10 +1,26 @@
 Robobrain Onboarding Docs
 ===================
 
+#### Table of Contents
+  - [For the New Developer](#for-the-new-developer)
+      - [Introduction](#introduction)
+      - [Technology Stack](#technology-stack)
+      - [How to get the code running locally](#how-to-get-the-code-running-locally)
+      - [How to use AWS to deploy](#how-to-use-aws-to-deploy)
+      - [Who you can get in touch with](#who-you-can-get-in-touch-with)
+  - [For the Old Developer](#for-the-old-developer)
+      - [Things to give New Users](#things-to-give-new-users)
+      - [Adding New Users](#adding-new-users)
+      - [Future Administrative Work](#future-administrative-work)
+
+-------------
+
 For the New Developer
 -------------
 #### Introduction
-[**Robobrain**](robobrain.me) is a project that serves Twitter-like feeds of various things learned by the research project that contribute to it. It tags special concepts that the robot learns like *book* or *grasp* and creates a graphical association for them. Our web interface allows us to view the infinite feed, upvote and downvote elements, comment using [Disqus](https://disqus.com/) and view the underlying graph structure <sup>Coming Soon</sup>..
+[**Robobrain**](robobrain.me) is a project that serves Twitter-like feeds of various things learned by the research project that contribute to it. It tags special concepts that the robot learns like *book* or *grasp* and creates a graphical association for them. Our web interface allows us to view the infinite feed, upvote and downvote elements, comment using [Disqus](https://disqus.com/) and view the underlying graph structure <sup>Coming Soon</sup>
+
+
 
 #### Technology Stack
 
@@ -17,6 +33,8 @@ Our Frontend stack is in **Angularjs**, a **Javascript** based front-end framewo
 To deploy, we use **nginx** as our webserver, which serves the static files built by Grunt, and uses **uwsgi** to interface with Django.
 
 > **Note:** If any portion of the tutorial below is incorrect or not functional, contact Deedy (dd367@cornell.edu) immediately.
+
+
 
 ####  How to get the code running locally
  1. Add new user's Github account to the organization **RoboBrainCode**.
@@ -41,6 +59,7 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
 
  8.  If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
  > **Important:** Currently, be careful to not overwrite the `manage.py` on the `production` branch or it will use the test database instead of the production one.
+
 
 
 ####  How to use AWS to deploy
@@ -76,6 +95,8 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
          - nginx error log - `/var/log/nginx/error.log`
          - uwsgi - `/var/log/uwsgi/robobrain.log`
 
+
+
 ####  Who you can get in touch with
 
  - **Deedy Das (dd367@cornell.edu)** - Full stack developer, worked on all the system administration and deployment stuff, did initial site design and frontend
@@ -83,6 +104,10 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
  - **Kevin Lee (kkl53@cornell.edu)** - Frontend developer, started the Angular/Yeoman frontend
  - **Ozan Sener (os79@cornell.edu)** - Database administrator, in charge of the mongoDB instances and wrote the Client repo to add feeds to the DB
  - **Aditya Jami (adityajami@gmail.com)** - Amazon AWS guy, set up AWS and got everybody initial access to deployment
+
+----------
+
+
 
 For the Old Developer
 -------------
@@ -93,6 +118,8 @@ For the Old Developer
  2. The 3 `.pem` files needed to access the 4 EC2 instances - `www-test`, `www-large`, `mongo-test` and `mongo-prod`.
 
  3. Add them to Github organization, giving them access to the repositories.
+
+
 
 ####  Adding New Users
 
@@ -124,6 +151,8 @@ For the Old Developer
     ```
 Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zsh`.
 
+
+
 ####  Future Administrative Work
 
  1. Iron out specifications as to what branches will contain what such that overwrites on a certain file are not an issue, and do not change the backend database.
@@ -136,5 +165,10 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
  5. Figure out the correct `nginx`, `uwsgi` and permission settings on the instances.
 
- 6. Distant future - possibly add Phabricator as a code review tool.
+ 6. Not so distant future - figure out how we are going to do testing. As our code get's bigger, we cannot blindly launch.
 
+ 7. Distant future - possibly add Phabricator as a code review tool.
+
+
+
+----------
