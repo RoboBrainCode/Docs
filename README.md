@@ -32,7 +32,7 @@ Our Backend stack is in **Django**, a **Python** based web framework, which conn
 
 Our Frontend stack is in **Angularjs**, a **Javascript** based front-end framework by Google, generated and scaffolded by **Yeoman**. We use **Grunt** as our build system, and **node** and **bower** as our package managers. For our graph visualization, we use **D3js** <sup>Coming Soon</sup>.
 
-To deploy, we use **nginx** as our webserver, which serves the static files built by Grunt, and uses **uwsgi** to interface with Django.
+To deploy, we use **nginx** as our webserver, which serves the static files built by Grunt, and uses **uwsgi** to interface with Django and we use **fabric** as a deployment tool.
 
 > **Note:** If any portion of the tutorial below is incorrect or not functional, contact Deedy (dd367@cornell.edu) immediately.
 
@@ -50,17 +50,29 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
 
  5. After following the instructions in the second part of this guide, you should have made sure your changes are working at http://test.robobrain.me.
 
- 5. If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
+ 6. If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
  > **Important:** Currently, be careful to not overwrite the `Gruntfile.js` on the `production` branch or it will use the test database instead of the production one.
 
 
- 6.  For Backend, run `sudo pip install -r requirements.txt` to install all your Python dependencies.
+ 7.  For Backend, run `sudo pip install -r requirements.txt` to install all your Python dependencies.
 
- 7.  If all goes well, run `python manage.py runserver` and you should be able to see your Django backend running on http://localhost:8000.
- > **Note:** We are currently fixing an issue with the `uwsgi` dependency, so this might not work.
+ 8.  If all goes well, run `python manage.py runserver` and you should be able to see your Django backend running on http://localhost:8000.
 
- 8.  If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
- > **Important:** Currently, be careful to not overwrite the `manage.py` on the `production` branch or it will use the test database instead of the production one.
+ 9.  You should do your development on a separate feature branch `myfeature`. After testing locally, you should merge the branch to `master` by checking out `master` and executing `git merge --no-ff myfeature`. More details can be found here: [A Successful Branching Model](http://nvie.com/posts/a-successful-git-branching-model/).
+ 
+ 
+
+ 10. At this point, you should probably proceed with the steps in this section - [How to use AWS to deploy](#how-to-use-aws-to-deploy) to ensure access to the AWS instances. Run `fab test_deploy:deedy` if your username is `deedy` to deploy your changes to http://test.robobrain.me. 
+ 
+ 
+	> **Note:** The fab scripts are currently in their beginning stages and may run into issues with unexpected behavior such as addition of new libraries.
+
+ 
+ 11. If everything works there, run `fab prod_deploy:deedy` (if `deedy` is your username) to deploy to http://robobrain.me.
+
+ 
+	> **Note:** By default, without a specified username, fab uses `ubuntu`. On `test_deploy`, this automagically works without requiring any other forms of authentication. On `prod_deploy` however, this doesn't work because it cannot authenticate our git account through fab for some reason. 
+
 
 
 
@@ -88,7 +100,7 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
 
  8. For Frontend, guide yourself to `/var/www/Frontend/` and pull the changes you made to the `test` branch. Run a `grunt build`. This may take up to 8 minutes, because compressing images takes a long time. To speed this up, comment out the line that contains `'imagemin',` under concurrent > dist, in `Gruntfile.js`. This compiles the optimized static content to the  `/var/www/Frontend/dist` folder, and serves it live on `http://test.robobrain.me`.
 
- 9.  For Backend, guide yourself to `/var/www/Frontend/` and pull the changes you made to the `test` branch. Run `uwsgi --reload /tmp/robobrain-master.pid` to see your backend changes reflected at `http://test.robobrain.me:3000`
+ 9.  For Backend, we now deploy with `fab` as directed above.
 
  10.  For deploying on production, the instructions remain pretty much identical, except all the commands should be run in the `production` branch.
 
@@ -117,7 +129,8 @@ For the Old Developer
 
  1. An account with Amazon AWS.
 
- 2. The 3 `.pem` files needed to access the 4 EC2 instances - `www-test`, `www-large`, `mongo-test` and `mongo-prod`.
+ 2. The 2 `.pem` files needed to access the 2 EC2 instances - `mongo-test` and `mongo-prod`.
+	 > **Note:** Now,  `www.pem`, for `www-test`, `www-large` is a part of the Backend repository.
 
  3. Add them to Github organization, giving them access to the repositories.
 
@@ -157,11 +170,7 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
 ####  Future Administrative Work
 
- 1. Iron out specifications as to what branches will contain what such that overwrites on a certain file are not an issue, and do not change the backend database.
-
- 2. Figure out auto reloading of Django with uwsgi again.
-
- 3. Add Github hooks to auto-pull and update the live site every time a merge is made to the`test` or `production` branches.
+ 1. Figure out integration of `fab` into frontend deployment.
 
  4. Alpha-test the on-boarding procedure on current members to make sure everything works and keep this doc updated.
 
