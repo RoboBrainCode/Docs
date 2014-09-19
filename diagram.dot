@@ -1,0 +1,43 @@
+digraph G {
+  rankdir=LR;
+
+  subgraph cluster3 {
+    fontsize = 20;
+    label = "Local";
+    rank = same;
+    G  H [constraint=false];
+    style = "dashed";
+  }
+
+  subgraph cluster1 {
+    fontsize = 20;
+    label = "Test";
+    rank=same;
+    A -> B -> C [constraint=false];
+    style = "dashed";
+  }
+
+  subgraph cluster2 {
+    fontsize = 20;
+    label = "Prod";
+    rank=same;
+    Z -> Y ->  X  [constraint=false];
+    style = "dashed";
+  }
+
+  A -> Z [arrowhead="none",style="dashed"];
+  B -> Y [arrowhead="none",style="dashed"];
+  C -> X [arrowhead="none",style="dashed"]; 
+  G -> B;
+  H -> C;
+  G, H, A, B, C, X, Y, Z  [shape="box"];
+  A [label="mongo-test"];
+  Z [label="mongo-prod"];
+  B [fontsize=10,label="www-test \n test.robobrain.me:3000 \n Backend"];
+  C [fontsize=10,label="www-test \n test.robobrain.me \n Frontend"];
+  Y [fontsize=10,label="www-large \n robobrain.me:3000 \n Backend"];
+  X [fontsize=10,label="www-large \n robobrain.me \n Frontend"];
+  G [fontsize=10,label="localhost:8000 \n Backend"];
+  H [fontsize=10,label="localhost:9000 \n Frontend"];
+  
+}
