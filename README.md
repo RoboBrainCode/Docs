@@ -26,7 +26,7 @@ For the New Developer
 
 Technologically, Robobrain is hosted on private Github repositories under the organization **RoboBrainCode**. We have separate repositories for the Backend, Frontend and a client-side interface through which new feeds can be added.
 
-![Image](https://github.com/RoboBrainCode/Docs/blob/master/diagram.jpg?raw=true)
+<img src="https://github.com/RoboBrainCode/Docs/blob/master/diagram.jpg?raw=true" width="700px"/>
 
 Our Backend stack is in **Django**, a **Python** based web framework, which connects to our feed database, in **MongoDB** and further, our graph database, in **Neo4j** <sup>Coming Soon</sup>.
 
