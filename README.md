@@ -6,7 +6,8 @@ Robobrain Onboarding Docs
       - [Introduction](#introduction)
       - [Technology Stack](#technology-stack)
       - [How to get the code running locally](#how-to-get-the-code-running-locally)
-      - [How to use AWS to deploy](#how-to-use-aws-to-deploy)
+      - [Iterating and Deploying](#iterating-and-deploying)
+      - [How to set up AWS access](#how-to-set-up-aws-access)
       - [Who you can get in touch with](#who-you-can-get-in-touch-with)
   - [For the Old Developer](#for-the-old-developer)
       - [Things to give New Users](#things-to-give-new-users)
@@ -45,27 +46,23 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
  >  SSH URL eg. `git@github.com:RoboBrainCode/Backend.git`
 
  3. For Frontend, navigate to the root directory of the repository, and run `npm install` and `bower install`. If everything runs smoothly, run `grunt serve` and you should be able to see a local version running on http://localhost:9000.
-
- 4. After you made your changes, and they look functional on local, merge your changes with the `test` branch.
-
- 5. After following the instructions in the second part of this guide, you should have made sure your changes are working at http://test.robobrain.me.
-
- 6. If they work correctly on `test`, merge to the `production` branch. Then follow more instructions in the second part of the guide to finish your deploy.
- > **Important:** Currently, be careful to not overwrite the `Gruntfile.js` on the `production` branch or it will use the test database instead of the production one.
-
-
+ 
  7.  For Backend, run `sudo pip install -r requirements.txt` to install all your Python dependencies.
 
  8.  If all goes well, run `python manage.py runserver` and you should be able to see your Django backend running on http://localhost:8000.
 
  9.  You should do your development on a separate feature branch `myfeature`. After testing locally, you should merge the branch to `master` by checking out `master` and executing `git merge --no-ff myfeature`. More details can be found here: [A Successful Branching Model](http://nvie.com/posts/a-successful-git-branching-model/).
  
- 
+####  Iterating and Deploying 
 
- 10. At this point, you should probably proceed with the steps in this section - [How to use AWS to deploy](#how-to-use-aws-to-deploy) to ensure access to the AWS instances. Run `fab test_deploy:deedy` if your username is `deedy` to deploy your changes to http://test.robobrain.me. 
+ 10. At this point, you should probably proceed with the steps in this section - [How to use AWS to deploy](#how-to-use-aws-to-deploy) to ensure access to the AWS instances. Ensure you're on the `master` branch. 
+ 
+ 11. Run `fab test_deploy:deedy` if your username is `deedy` to deploy your changes to http://test.robobrain.me. 
  
  
 	> **Note:** The fab scripts are currently in their beginning stages and may run into issues with unexpected behavior such as addition of new libraries.
+
+	> **Note:** The Frontend deployment has an additional speed option. By default, it uses `fast` which deploys the Frontend to the server and builds it without optimizing new images. To disable this, just run `fab test_deploy:deedy,slow`. <sup>Untested</sup>
 
  
  11. If everything works there, run `fab prod_deploy:deedy` (if `deedy` is your username) to deploy to http://robobrain.me.
@@ -76,7 +73,7 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
 
 
 
-####  How to use AWS to deploy
+####  How to set up AWS access
 
  1. Get your username and password set up for accessing the Amazon AWS dashboard and console. From here, you can look at all our running instances, see information about them, and more.
 
@@ -98,13 +95,9 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
 
  7.  Firstly, you'll want to associate your Github account with the one on the instance. To do this, follow the tutorial here - [Generating SSH Keys - Github](https://help.github.com/articles/generating-ssh-keys).
 
- 8. For Frontend, guide yourself to `/var/www/Frontend/` and pull the changes you made to the `test` branch. Run a `grunt build`. This may take up to 8 minutes, because compressing images takes a long time. To speed this up, comment out the line that contains `'imagemin',` under concurrent > dist, in `Gruntfile.js`. This compiles the optimized static content to the  `/var/www/Frontend/dist` folder, and serves it live on `http://test.robobrain.me`.
+ 8. For both Backend and Frontend, we deploy with `fab`. To view the details of this process, simply open up the `fabfile.py` in the root directory of every repository. It is a very simple Python script wrapper for SSHing and running shell commands.
 
- 9.  For Backend, we now deploy with `fab` as directed above.
-
- 10.  For deploying on production, the instructions remain pretty much identical, except all the commands should be run in the `production` branch.
-
- 11.  If anything goes wrong in the final deploy process, check one of the following logs:
+ 11.  If anything goes wrong in the final deploy process, check one of the following logs or contact one of the people below:
          - nginx access log - `/var/log/nginx/access.log`
          - nginx error log - `/var/log/nginx/error.log`
          - uwsgi - `/var/log/uwsgi/robobrain.log`
@@ -170,7 +163,7 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
 ####  Future Administrative Work
 
- 1. Figure out integration of `fab` into frontend deployment.
+ 1. Use `ssh-add` or something in `fab` to avoid entering password 3-4 times for every deploy. 
 
  4. Alpha-test the on-boarding procedure on current members to make sure everything works and keep this doc updated.
 
@@ -183,3 +176,4 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
 
 ----------
+
