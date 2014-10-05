@@ -5,7 +5,7 @@ digraph G {
     fontsize = 20;
     label = "Local";
     rank = same;
-    G  H [constraint=false];
+    G -> H [constraint=false, style="dashed", label="grunt serve:uselocal", fontsize = 8];
     style = "dashed";
   }
 
@@ -13,7 +13,8 @@ digraph G {
     fontsize = 20;
     label = "Test";
     rank=same;
-    A -> B -> C [constraint=false];
+    A -> B [constraint=false, label="settings_test.py", fontsize = 8];
+    B -> C [constraint=false, label="grunt - ngconstant:development", fontsize = 8];
     style = "dashed";
   }
 
@@ -21,15 +22,16 @@ digraph G {
     fontsize = 20;
     label = "Prod";
     rank=same;
-    Z -> Y ->  X  [constraint=false];
+    Z -> Y  [constraint=false, label="settings_prod.py", fontsize = 8];
+    Y ->  X  [constraint=false, label="grunt - ngconstant:production", fontsize = 8];
     style = "dashed";
   }
 
   A -> Z [arrowhead="none",style="dashed"];
-  B -> Y [arrowhead="none",style="dashed"];
-  C -> X [arrowhead="none",style="dashed"]; 
-  G -> B;
-  H -> C;
+  B -> Y [arrowhead="none",style="dashed", label="fab prod_deploy", fontsize = 8];
+  C -> X [arrowhead="none",style="dashed", label="fab prod_deploy", fontsize = 8];
+  G -> B [label="fab test_deploy", fontsize = 8];
+  H -> C [label="fab test_deploy", fontsize = 8];
   G, H, A, B, C, X, Y, Z  [shape="box"];
   A [label="mongo-test"];
   Z [label="mongo-prod"];
@@ -39,5 +41,5 @@ digraph G {
   X [fontsize=10,label="www-large \n robobrain.me \n Frontend"];
   G [fontsize=10,label="localhost:8000 \n Backend"];
   H [fontsize=10,label="localhost:9000 \n Frontend"];
-  
+
 }
