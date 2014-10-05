@@ -13,6 +13,7 @@ Robobrain Onboarding Docs
       - [Things to give New Users](#things-to-give-new-users)
       - [Adding New Users](#adding-new-users)
       - [Future Administrative Work](#future-administrative-work)
+      - [Bugs and Fixes](#bugs-and-fixes)
 
 -------------
 
@@ -45,7 +46,8 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
  2. Clone the SSH URL of the repositories [**Backend**](https://github.com/RoboBrainCode/Backend) and [**Frontend**](https://github.com/RoboBrainCode/Frontend).
  >  SSH URL eg. `git@github.com:RoboBrainCode/Backend.git`
 
- 3. For Frontend, navigate to the root directory of the repository, and run `npm install` and `bower install`. If everything runs smoothly, run `grunt serve` and you should be able to see a local version running on http://localhost:9000.
+ 3. For Frontend, navigate to the root directory of the repository, and run `npm install` and `bower install`. If everything runs smoothly, run `grunt serve` and you should be able to see a local version running on http://localhost:9000. 
+	 	> **Note:** By default, this frontend would connect to the `test.robobrain.me` backend. To develop full stack locally, simply run `grunt serve:uselocal` after running your Django server locally, presumably on the default port 8000, to develop backend and frontend simultaneously. 
  
  7.  For Backend, run `sudo pip install -r requirements.txt` to install all your Python dependencies.
 
@@ -94,6 +96,7 @@ alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-
  6.  Now, run `ssh-robobrain-www-test` to login to the test.robobrain instance. You should see a beautiful [solarized](http://ethanschoonover.com/solarized) terminal with a prompt, and you should be automatically in the directory `/var/www` which contains 2 folders - `Frontend` and `Backend`, our two repositories.
 
  7.  Firstly, you'll want to associate your Github account with the one on the instance. To do this, follow the tutorial here - [Generating SSH Keys - Github](https://help.github.com/articles/generating-ssh-keys).
+	 	> **Note:** This tutorial asks you to set a secure password, but now, during the `fab` deploy process, this would require you to enter a password 3-4 times during every deploy. To avoid this annoyance, simply set no text as your `ssh` password for your key.
 
  8. For both Backend and Frontend, we deploy with `fab`. To view the details of this process, simply open up the `fabfile.py` in the root directory of every repository. It is a very simple Python script wrapper for SSHing and running shell commands.
 
@@ -161,9 +164,13 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
 
 
 
-####  Future Administrative Work
+####  Future Administrative Work 
 
- 1. Use `ssh-add` or something in `fab` to avoid entering password 3-4 times for every deploy. 
+ 1. Figure out an effective way to update other team members on Django dependencies, as well as auto deploy new dependencies to the servers.
+ 
+ 2. Serve the backend through a subdomain like `api.robobrain.me` or a URL such as `robobrain.me/api/` instead of the hacky separate `3000` port.
+
+ 3. Get the entire team on [Slack](https://slack.com/).
 
  4. Alpha-test the on-boarding procedure on current members to make sure everything works and keep this doc updated.
 
@@ -174,6 +181,22 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
  7. Distant future - possibly add Phabricator as a code review tool.
 
 
+
+----------
+
+####  Bugs and Fixes
+
+ 1. Add a video player library - either video.js or flowplayer - to wrap the videos and make them cross-browser compatible, and dynamically loaded.
+
+ 2. Some of the API content returns  `#$` in the text. These hashtags should not be stripped and bolded and queryable.
+
+ 3. Batching the database calls loses the order that we need. Re-establish that order.
+
+ 4. Currently, CORS access is given to all URLs on production. This is a changeable setting in Django.
+
+ 5. SVGs on the Frontend don't build correctly to the right location.
+
+ 6. Some of the `sourceText` labels overflow on mobile. 
 
 ----------
 
