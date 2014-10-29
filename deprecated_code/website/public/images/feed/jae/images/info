@@ -1,0 +1,6 @@
+1.  lever coffee_dispenser  ./scripts/data_visualizer.py -g -s medium -t 120 data-new/obj072 part_3 data-new/obj069 traj_02 
+2.  handle./scripts/data_visualizer.py -g -s medium -t 120 data-new/obj050 part_1 data-new/obj085 traj_01
+3.  button ./scripts/data_visualizer.py -g -s medium -t 120 data-new/obj110 part_1 data-new/obj042 traj_01
+4.  knob ./scripts/data_visualizer.py -g -s medium -t 120 data-new/obj076 part_1 data-new/obj070 traj_03
+
+

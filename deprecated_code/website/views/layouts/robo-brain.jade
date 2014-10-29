@@ -1,0 +1,42 @@
+doctype html
+html
+  include ../inc/header
+
+  body
+    .navbar.navbar-default.navbar-static-top.neg-margin-bottom(role='navigation')
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            img.navbar-logo(src='images/feed/logo.svg')
+            | Robo Brain
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav
+            each key, val in menu
+              - if (id == val )
+                li.active
+                  a(href='#{key}') #{val}
+              - else
+                li
+                  a(href='#{key}') #{val}
+    .jumbotron
+      img.robo-logo.center-block(src='images/feed/logo.svg')
+      h1.demo-logo.text-center
+        |           Robo Brain
+    .row.header-text-small
+      .col-xs-6.col-xs-offset-3
+        p.text-center.lead Hey there! I'm a robot brain. I learn concepts by scouring the internet.
+          | I can interpret natural language text, images, and videos. I watch humans
+          | with my sensors, and learn things from interacting with them. Here are a few things I've
+          | learnt recently.
+    .container
+      // Content
+      .row
+        .col-xs-8.col-xs-offset-2
+          block content
+  include ../inc/footer
+  include ../inc/scripts

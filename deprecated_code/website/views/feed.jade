@@ -1,0 +1,59 @@
+extends layouts/robo-brain
+
+mixin dot
+  | &sdot;
+
+mixin space
+  | &nbsp;
+
+mixin space-2
+  | &nbsp; &nbsp;
+
+mixin space-3
+  | &nbsp; &nbsp; &nbsp;
+
+mixin space-4
+  +space-2
+  +space-2
+
+mixin tile(feedItem)
+  .col-xs-12.feed-tile(class="feed-#{ feedItem.type }")
+    .row
+      p.pull-right.feed-meta-data.feed-meta-top= feedItem.timeText
+        +dot
+        span.fui-location
+        = ' '+feedItem.location
+    p.lead
+      each word in feedItem.text.split(' ')
+        - word = word + ' '
+        if word[0] == '#'
+          strong= word.substring(1)
+        else
+          = word
+    .row
+      each mediaType in feedItem.media
+        if mediaType.contentType === 'image'
+          .col-xs-6
+            img.img-rounded.img-responsive.feed-img.center-block(src=mediaType.url)
+    p.pull-left.feed-meta-data.feed-meta-bottom
+      strong(class="feed-text-#{ feedItem.type }")= feedItem.type
+    p.pull-right.feed-meta-bottom.feed-meta-data-additional
+      span.fui-heart
+        +space
+        = feedItem.likes
+      +space-4
+      span.fui-chat
+        +space
+        = feedItem.comments
+      +space-4
+      span.fui-eye
+        +space
+        = feedItem.views
+
+
+
+block content
+  .feed
+    each feedItem in feed
+      +tile(feedItem)
+
