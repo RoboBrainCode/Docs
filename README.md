@@ -87,10 +87,10 @@ To deploy, we use **nginx** as our webserver, which serves the static files buil
 
  5.  Add the following aliases to your shell rc file, usually `~/.bashrc` or `~/.zshrc`:
  ```bash
-alias ssh-robobrain-www-prod='ssh -i ~/robobrain/www.pem ec2-54-218-14-187.us-west-2.compute.amazonaws.com -l deedy'
-alias ssh-robobrain-www-test='ssh -i ~/robobrain/www.pem ec2-54-218-20-10.us-west-2.compute.amazonaws.com -l deedy'
-alias ssh-robobrain-mongo-prod='ssh -i ~/robobrain/mongo-prod.pem ec2-54-186-129-44.us-west-2.compute.amazonaws.com -l ec2-user'
-alias ssh-robobrain-mongo-test='ssh -i ~/robobrain/mongo-test.pem ec2-54-186-47-107.us-west-2.compute.amazonaws.com -l ec2-user'
+alias ssh-robobrain-www-prod='ssh -i ~/Dev/PR-Research/robobrain/www.pem ec2-54-68-27-137.us-west-2.compute.amazonaws.com -l deedy'
+alias ssh-robobrain-www-test='ssh -i ~/Dev/PR-Research/robobrain/www.pem ec2-54-218-20-10.us-west-2.compute.amazonaws.com -l deedy'
+alias ssh-robobrain-mongo-prod='ssh -i ~/Dev/PR-Research/robobrain/mongo-prod.pem ec2-54-186-129-44.us-west-2.compute.amazonaws.com -l ec2-user'
+alias ssh-robobrain-mongo-test='ssh -i ~/Dev/PR-Research/robobrain/mongo-test.pem ec2-54-186-47-107.us-west-2.compute.amazonaws.com -l ec2-user'
  ```
  Now, restart your shell. After this, you'll be able to use the commands `ssh-robobrain-www-prod` (The [production](robobrain.me) website instance), `ssh-robobrain-www-test` (The [test](test.robobrain.me) website instance), `ssh-robobrain-mongo-prod` (The production mongoDB instance) and `ssh-robobrain-mongo-test` (The test mongoDB instance) to access the appropriate instances.
  6.  Now, run `ssh-robobrain-www-test` to login to the test.robobrain instance. You should see a beautiful [solarized](http://ethanschoonover.com/solarized) terminal with a prompt, and you should be automatically in the directory `/var/www` which contains 2 folders - `Frontend` and `Backend`, our two repositories.
@@ -154,11 +154,11 @@ For the Old Developer
     ```
 
 
- 7. Now, copy your dot files to enable oh-my-zsh and solarized vim for the new user by executing the following:
+ 7. Now, copy the dot files from an existing user to enable oh-my-zsh and solarized vim for the new user by executing the following:
     ```bash
-    sudo cp -R ~/.vimrc /home/deedy/
-    sudo cp -R ~/.zshrc /home/deedy/
-    sudo cp -R ~/.oh-my-zsh /home/deedy/
+    sudo cp -R /home/<existinguser>/.vimrc ~/
+sudo cp -R /home/<existinguser>/.zshrc ~/
+sudo cp -R /home/<existinguser>/.oh-my-zsh ~/
     ```
 Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zsh`.
 
@@ -199,4 +199,3 @@ Proceed to set the new user's default shell to `zsh` by running `chsh -s /bin/zs
  6. Some of the `sourceText` labels overflow on mobile. 
 
 ----------
-
